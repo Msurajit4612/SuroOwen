@@ -101,18 +101,18 @@ button {
     border-radius: 14px;
 }
 
-/* NO Warning Popup */
-.no-popup {
+/* FULLSCREEN NO POPUP */
+.no-popup-full {
     display: none;
     position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #fff;
-    padding: 15px 25px;
-    border-radius: 12px;
-    font-size: 14px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    color: white;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 22px;
+    padding: 20px;
     z-index: 6;
 }
 </style>
@@ -137,9 +137,9 @@ button {
     </div>
 </div>
 
-<!-- NO Message Popup -->
-<div class="no-popup" id="noPopup">
-    Or kitna Na karegi, Ab to ha bol de 😜❤️
+<!-- FULLSCREEN NO MESSAGE -->
+<div class="no-popup-full" id="noPopupFull">
+    Or kitna Na karegi,<br>Ab to ha bol de 😜❤️
 </div>
 
 <script>
@@ -162,7 +162,7 @@ setInterval(createHeart, 300);
 /* NO button logic */
 const noBtn = document.getElementById("no");
 const container = document.querySelector(".container");
-const noPopup = document.getElementById("noPopup");
+const noPopupFull = document.getElementById("noPopupFull");
 let noCount = 0;
 
 noBtn.style.top = "180px";
@@ -177,10 +177,11 @@ noBtn.addEventListener("mouseover", () => {
     noBtn.style.top = y + "px";
 
     if (noCount === 5) {
-        noPopup.style.display = "block";
+        noPopupFull.style.display = "flex";
+
         setTimeout(() => {
-            noPopup.style.display = "none";
-        }, 2500);
+            noPopupFull.style.display = "none";
+        }, 2000);
     }
 });
 
@@ -190,7 +191,7 @@ document.getElementById("yes").addEventListener("click", () => {
 
     setTimeout(() => {
         window.location.href =
-        "https://wa.me/917001071252?text=Owendrila%20Accepted%20your%20proposal%20❤️";
+        "https://wa.me/918670221263?text=Owendrila%20Accepted%20your%20proposal%20❤️";
     }, 3000);
 });
 </script>
