@@ -2,243 +2,242 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<title>Will You Be My Valentine?</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Be My Valentine ❤️</title>
 
 <style>
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #ff758c, #ff7eb3);
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(120deg, #ff9a9e, #fad0c4);
     overflow: hidden;
 }
 
-/* Floating Hearts */
-.hearts {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    overflow: hidden;
-    z-index: 0;
-}
-
+/* Floating hearts */
 .heart {
-    position: absolute;
-    bottom: -20px;
-    color: rgba(255, 0, 80, 0.6);
-    animation: floatUp linear infinite;
-}
-
-@keyframes floatUp {
-    from { transform: translateY(0) scale(1); opacity: 1; }
-    to { transform: translateY(-110vh) scale(1.8); opacity: 0; }
-}
-
-/* Screen Shake */
-.shake {
-    animation: shake 0.5s;
-}
-
-@keyframes shake {
-    0% { transform: translateX(0); }
-    25% { transform: translateX(-8px); }
-    50% { transform: translateX(8px); }
-    75% { transform: translateX(-8px); }
-    100% { transform: translateX(0); }
-}
-
-/* Main Card */
-.container {
-    background: white;
-    padding: 25px;
-    border-radius: 16px;
-    text-align: center;
-    width: 300px;
-    position: relative;
-    z-index: 2;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-}
-
-button {
-    padding: 10px 22px;
-    font-size: 16px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-#yes {
-    background: #28a745;
-    color: white;
-}
-
-#no {
-    background: #dc3545;
-    color: white;
-    position: absolute;
-}
-
-/* YES Popup */
-.popup {
-    display: none;
     position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.6);
-    justify-content: center;
-    align-items: center;
-    z-index: 5;
+    color: rgba(255,0,100,0.4);
+    animation: float 8s linear infinite;
+    font-size: 22px;
+}
+@keyframes float {
+    0% { transform: translateY(100vh); }
+    100% { transform: translateY(-10vh); }
 }
 
-.popup-content {
+/* Card */
+.card {
+    position: relative;
+    width: 90%;
+    max-width: 400px;
     background: white;
     padding: 30px;
-    border-radius: 16px;
+    border-radius: 20px;
     text-align: center;
-    max-width: 280px;
+    margin: 15vh auto;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
 }
 
-.popup-content img {
-    width: 100%;
-    max-width: 220px;
-    margin-top: 15px;
-    border-radius: 14px;
+/* Buttons */
+button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 30px;
+    font-size: 18px;
+    cursor: pointer;
+    margin: 10px;
 }
 
-/* FULLSCREEN NO POPUP */
-.no-popup-full {
+#yesBtn {
+    background: #ff4d6d;
+    color: white;
+}
+
+#noBtn {
+    background: #ddd;
+    position: absolute;
+}
+
+/* YES glow */
+@keyframes glowPulse {
+    0% { box-shadow: 0 0 10px #ff4d6d; transform: scale(1.1); }
+    50% { box-shadow: 0 0 35px #ff1e56; transform: scale(1.35); }
+    100% { box-shadow: 0 0 10px #ff4d6d; transform: scale(1.1); }
+}
+.yes-glow {
+    animation: glowPulse 1s infinite;
+}
+
+/* Shake */
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+}
+.shake {
+    animation: shake 0.4s;
+}
+
+/* Fullscreen tease popup */
+#noPopupFull {
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.75);
+    background: rgba(255,0,100,0.9);
     color: white;
-    justify-content: center;
+    font-size: 30px;
     align-items: center;
+    justify-content: center;
     text-align: center;
-    font-size: 22px;
-    padding: 20px;
-    z-index: 6;
+    z-index: 100;
 }
 
-/* Confetti */
-.confetti {
+/* Success popup */
+#successPopup {
+    display: none;
     position: fixed;
-    top: -10px;
-    font-size: 20px;
-    animation: fall linear forwards;
-    z-index: 10;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    color: white;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    z-index: 200;
 }
 
-@keyframes fall {
-    to {
-        transform: translateY(110vh) rotate(360deg);
-        opacity: 0;
-    }
+/* Slideshow */
+.slideshow img {
+    width: 230px;
+    border-radius: 15px;
+    margin-top: 20px;
+    opacity: 0;
+    transition: opacity 0.6s ease-in-out;
 }
 </style>
 </head>
 
 <body>
 
-<!-- 🎵 Music (hidden) -->
-<audio id="loveMusic" loop>
-    <source src="New recording 6.mp3" type="audio/mpeg">
-</audio>
+<script>
+for (let i = 0; i < 25; i++) {
+    let h = document.createElement("div");
+    h.className = "heart";
+    h.innerHTML = "❤️";
+    h.style.left = Math.random() * 100 + "vw";
+    h.style.animationDuration = (5 + Math.random() * 5) + "s";
+    document.body.appendChild(h);
+}
+</script>
 
-<div class="hearts"></div>
-
-<div class="container" id="card">
+<div class="card" id="card">
     <h2>Will you be my Valentine? ❤️</h2>
-    <button id="yes">Yes</button>
-    <button id="no">No</button>
+    <button id="yesBtn">YES</button>
+    <button id="noBtn">NO</button>
 </div>
 
-<!-- YES Popup -->
-<div class="popup" id="popup">
-    <div class="popup-content">
-        <h2>Congratulations Owendrila 🎉</h2>
-        <p>The best decision you have ever made 💖</p>
-        <img src="images.jpg" alt="Love Hearts">
+<div id="noPopupFull"></div>
+
+<div id="successPopup">
+    <h1>Congratulations Owendrila ❤️</h1>
+    <p>The best decision you have ever made 😌</p>
+    <div class="slideshow">
+        <img id="slideImage" src="">
     </div>
 </div>
 
-<!-- FULLSCREEN NO MESSAGE -->
-<div class="no-popup-full" id="noPopupFull">
-    Or kitna Na karegi,<br>Ab to ha bol de 😜❤️
-</div>
+<audio id="yesMusic" src="AudioCutter_M.S._Dhoni_The_Untold_Story_2016_-_Palak_Muchhal_-_Kaun_Tujhe_MS_(mp.mp3"></audio>
 
 <script>
-/* Floating Hearts */
-const heartsContainer = document.querySelector(".hearts");
-function createHeart() {
-    const heart = document.createElement("div");
-    heart.className = "heart";
-    heart.innerHTML = "❤️";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.fontSize = (16 + Math.random() * 22) + "px";
-    heart.style.animationDuration = (4 + Math.random() * 4) + "s";
-    heartsContainer.appendChild(heart);
-    setTimeout(() => heart.remove(), 8000);
-}
-setInterval(createHeart, 300);
-
-/* NO button logic */
-const noBtn = document.getElementById("no");
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
 const card = document.getElementById("card");
 const noPopupFull = document.getElementById("noPopupFull");
+const successPopup = document.getElementById("successPopup");
+const music = document.getElementById("yesMusic");
+
 let noCount = 0;
 
-noBtn.style.top = "180px";
-noBtn.style.left = "110px";
+const teaseMessages = {
+    5: "Ab toh maan ja 😜",
+    6: "Zyada bhaav mat kha 😏",
+    7: "YES hi option hai ab 😂",
+    8: "Ma Kasam 🙏 ab Man le",
+    9: "Ab manna hi padega 😈❤️"
+};
 
+/* Slideshow */
+const slides = [
+  "images.jpg",
+  "images1.jpg",
+  "images2.jpg",
+  "images3.jpg",
+  "images4.jpg"
+];
+let slideIndex = 0;
+const slideImg = document.getElementById("slideImage");
+
+function startSlideshow() {
+    slideImg.src = slides[slideIndex];
+    slideImg.style.opacity = 1;
+    setInterval(() => {
+        slideImg.style.opacity = 0;
+        setTimeout(() => {
+            slideIndex = (slideIndex + 1) % slides.length;
+            slideImg.src = slides[slideIndex];
+            slideImg.style.opacity = 1;
+        }, 600);
+    }, 1500);
+}
+
+/* NO logic */
 noBtn.addEventListener("mouseover", () => {
     noCount++;
 
-    const x = Math.random() * (card.clientWidth - 80);
-    const y = Math.random() * (card.clientHeight - 40);
-    noBtn.style.left = x + "px";
-    noBtn.style.top = y + "px";
+    noBtn.style.left = Math.random() * (card.clientWidth - 80) + "px";
+    noBtn.style.top = Math.random() * (card.clientHeight - 40) + "px";
 
-    if (noCount === 5) {
+    if (teaseMessages[noCount]) {
         card.classList.add("shake");
-        setTimeout(() => card.classList.remove("shake"), 500);
-
         if (navigator.vibrate) navigator.vibrate([200,100,200]);
-
+        noPopupFull.innerText = teaseMessages[noCount];
         noPopupFull.style.display = "flex";
         setTimeout(() => noPopupFull.style.display = "none", 2000);
     }
+
+    if (noCount >= 10) {
+        noBtn.style.display = "none";
+        yesBtn.classList.add("yes-glow");
+        yesBtn.style.transform = "scale(1.4)";
+        yesBtn.innerText = "YES ❤️";
+    }
 });
 
-/* Confetti */
-function confettiBlast() {
-    const emojis = ["🎉","💖","❤️","✨","💘"];
+/* YES logic */
+yesBtn.addEventListener("click", () => {
+    music.play();
+    successPopup.style.display = "flex";
+    startSlideshow();
+
     for (let i = 0; i < 40; i++) {
-        const c = document.createElement("div");
-        c.className = "confetti";
-        c.innerHTML = emojis[Math.floor(Math.random()*emojis.length)];
+        let c = document.createElement("div");
+        c.innerHTML = "🎉";
+        c.style.position = "fixed";
         c.style.left = Math.random() * 100 + "vw";
-        c.style.animationDuration = (2 + Math.random()*2) + "s";
+        c.style.top = "-20px";
+        c.style.fontSize = "24px";
+        c.style.animation = "float 3s linear";
         document.body.appendChild(c);
-        setTimeout(() => c.remove(), 4000);
+        setTimeout(() => c.remove(), 3000);
     }
-}
 
-/* YES click */
-document.getElementById("yes").addEventListener("click", () => {
-    // 🎵 Play music
-    document.getElementById("loveMusic").play();
-
-    confettiBlast();
-    document.getElementById("popup").style.display = "flex";
-
+    // WhatsApp redirect AFTER 10 seconds
     setTimeout(() => {
         window.location.href =
-        "https://wa.me/918436080667?text=Owendrila%20Accepted%20your%20proposal%20❤️";
-    }, 3000);
+          "https://wa.me/918436080667?text=Owendrila%20Accepted%20your%20proposal%20❤️";
+    }, 10000);
 });
 </script>
 
